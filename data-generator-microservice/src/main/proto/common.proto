@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+//how the java classes are generated from this .proto file
+option java_multiple_files = true;
+option java_package = "com.example.grpccommon";
+option java_outer_classname = "GeneratorProto";
+option objc_class_prefix = "RTG";
+
+package service;
+
+import "google/protobuf/empty.proto";
+
+service DataServer {
+
+  rpc AddData(GRPCData) returns (google.protobuf.Empty); //void
+
+}
