@@ -11,6 +11,6 @@ import lombok.Setter;
 public class DataTestOptions {
 
     private int delayInSeconds;
-    private Data.MeasurementType[] measurementType;
+    private Data.MeasurementType[] measurementTypes;
 
 }
