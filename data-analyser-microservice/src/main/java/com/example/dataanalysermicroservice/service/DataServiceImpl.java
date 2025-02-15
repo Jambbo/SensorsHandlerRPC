@@ -2,7 +2,6 @@ package com.example.dataanalysermicroservice.service;
 
 import com.example.dataanalysermicroservice.model.Data;
 import com.example.dataanalysermicroservice.repository.DataRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class DataServiceImpl implements DataService {
     private final DataRepository dataRepository;
 
     @Override
-    @Transactional
     public void handle(Data data) {
         log.info("Data object {} was saved", data);
         dataRepository.save(data);
@@ -33,4 +31,5 @@ public class DataServiceImpl implements DataService {
         }
         return data;
     }
+
 }
