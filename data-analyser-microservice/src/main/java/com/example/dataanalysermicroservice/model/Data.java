@@ -2,10 +2,7 @@ package com.example.dataanalysermicroservice.model;
 
 import com.example.grpccommon.GRPCData;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
@@ -18,6 +15,7 @@ import java.time.ZoneId;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class Data {
 
     @Id
@@ -52,7 +50,6 @@ public class Data {
         );
         this.measurement = data.getMeasurement();
         this.measurementType = MeasurementType.valueOf(data.getMeasurementType().name());
-
     }
 
 
