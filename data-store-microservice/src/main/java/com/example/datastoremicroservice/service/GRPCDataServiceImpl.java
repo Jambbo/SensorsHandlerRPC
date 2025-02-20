@@ -8,6 +8,7 @@ import io.grpc.stub.StreamObserver;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GRPCDataServiceImpl implements GRPCDataService{
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -51,11 +53,13 @@ public class GRPCDataServiceImpl implements GRPCDataService{
 
                             @Override
                             public void onError(Throwable throwable) {
+                                System.err.println("Error receiving data: " + throwable.getMessage());
+                                throwable.printStackTrace();
                             }
 
                             @Override
                             public void onCompleted() {
-                                System.out.println("Batch was handled.");
+                                log.info("Batch was handled.");
                             }
                         }
                 ),
