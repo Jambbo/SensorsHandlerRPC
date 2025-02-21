@@ -33,28 +33,19 @@ public class SummaryRepositoryImpl implements SummaryRepository {
             )) {
                 return Optional.empty();
             }
-            if (measurementTypes.isEmpty() && !summaryTypes.isEmpty()) {
-                return getSummary(
-                        sensorId,
-                        Set.of(MeasurementType.values()),
-                        summaryTypes,
-                        jedis
-                );
-            } else if (!measurementTypes.isEmpty() && summaryTypes.isEmpty()) {
-                return getSummary(
-                        sensorId,
-                        measurementTypes,
-                        Set.of(SummaryType.values()),
-                        jedis
-                );
-            } else {
-                return getSummary(
-                        sensorId,
-                        measurementTypes,
-                        summaryTypes,
-                        jedis
-                );
-            }
+            Set<MeasurementType> resolvedMeasurementTypes = measurementTypes.isEmpty()
+                    ? Set.of(MeasurementType.values())
+                    : measurementTypes;
+
+            Set<SummaryType> resolvedSummaryTypes = summaryTypes.isEmpty()
+                    ? Set.of(SummaryType.values())
+                    : summaryTypes;
+            return getSummary(
+                    sensorId,
+                    resolvedMeasurementTypes,
+                    resolvedSummaryTypes,
+                    jedis
+            );
         }
 
 
