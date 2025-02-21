@@ -87,18 +87,22 @@ public class SummaryRepositoryImpl implements SummaryRepository {
     @Override
     public void handle(Data data) {
         try (Jedis jedis = jedisPool.getResource()) {
-            if (!jedis.sismember(
-                    RedisSchema.sensorKeys(),
-                    String.valueOf(data.getSensorId())
-            )) {
-                jedis.sadd(
-                        RedisSchema.sensorKeys(),
-                        String.valueOf(data.getSensorId())
-                );
-            }
+            ensureSensorExists(data, jedis);
             updateMinValue(data, jedis);
             updateMaxValue(data, jedis);
             updateSumAndAvgValue(data, jedis);
+        }
+    }
+
+    private static void ensureSensorExists(Data data, Jedis jedis) {
+        if (!jedis.sismember(
+                RedisSchema.sensorKeys(),
+                String.valueOf(data.getSensorId())
+        )) {
+            jedis.sadd(
+                    RedisSchema.sensorKeys(),
+                    String.valueOf(data.getSensorId())
+            );
         }
     }
 

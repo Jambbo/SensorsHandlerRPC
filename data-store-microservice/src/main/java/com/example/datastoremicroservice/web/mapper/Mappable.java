@@ -1,10 +1,7 @@
 package com.example.datastoremicroservice.web.mapper;
 
-import org.mapstruct.Mapper;
-
 import java.util.List;
 
-@Mapper(componentModel = "spring")
 public interface Mappable<E, D> {
 
     E toEntity(D dto);
