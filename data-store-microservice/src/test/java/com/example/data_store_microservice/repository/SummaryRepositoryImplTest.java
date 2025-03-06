@@ -1,4 +1,4 @@
-package com.example.data_store_microservice;
+package com.example.data_store_microservice.repository;
 
 
 import com.example.datastoremicroservice.model.Data;
